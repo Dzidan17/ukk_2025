@@ -2,21 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-// import 'flutterViz_bottom_navigationBar_model.dart';
+import 'flutterViz_bottom_navigationBar_model.dart';
 
-// class HomePage extends StatelessWidget {
-//   final pageController = PageController();
-//   List<FlutterVizBottomNavigationBarModel> flutterVizBottomNavigationBarItems =
-//       [
-//     FlutterVizBottomNavigationBarModel(icon: Icons.home, label: "Home"),
-//     FlutterVizBottomNavigationBarModel(icon: Icons.article, label: "Order"),
-//     FlutterVizBottomNavigationBarModel(
-//         icon: Icons.favorite, label: "Favourite"),
-//     FlutterVizBottomNavigationBarModel(
-//         icon: Icons.shopping_cart, label: "Market"),
-//     FlutterVizBottomNavigationBarModel(
-//         icon: Icons.account_circle, label: "Account")
-//   ];
+class HomePage extends StatelessWidget {
+  final pageController = PageController();
+  List<FlutterVizBottomNavigationBarModel> flutterVizBottomNavigationBarItems =
+      [
+    FlutterVizBottomNavigationBarModel(icon: Icons.home, label: "Home"),
+    FlutterVizBottomNavigationBarModel(icon: Icons.article, label: "Order"),
+    FlutterVizBottomNavigationBarModel(
+        icon: Icons.favorite, label: "Favourite"),
+    FlutterVizBottomNavigationBarModel(
+        icon: Icons.shopping_cart, label: "Market"),
+    FlutterVizBottomNavigationBarModel(
+        icon: Icons.account_circle, label: "Account")
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -210,22 +210,22 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
                               );
                             },
                           ),
-                          // Align(
-                          //   alignment: Alignment.bottomCenter,
-                          //   child: SmoothPageIndicator(
-                          //     controller: pageController,
-                          //     count: 3,
-                          //     axisDirection: Axis.horizontal,
-                          //     effect: WormEffect(
-                          //       dotColor: Color(0xff9e9e9e),
-                          //       activeDotColor: Color(0xff3f51b5),
-                          //       dotHeight: 12,
-                          //       dotWidth: 12,
-                          //       radius: 16,
-                          //       spacing: 8,
-                          //     ),
-                          //   ),
-                          // ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SmoothPageIndicator(
+                              controller: pageController,
+                              count: 3,
+                              axisDirection: Axis.horizontal,
+                              effect: WormEffect(
+                                dotColor: Color(0xff9e9e9e),
+                                activeDotColor: Color(0xff3f51b5),
+                                dotHeight: 12,
+                                dotWidth: 12,
+                                radius: 16,
+                                spacing: 8,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
