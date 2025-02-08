@@ -1,5 +1,32 @@
 palet color
-FF6500 => text colors
-1E3E62 => background button, dll
-0B192C => outline button
-000000 => background
+0xFFFAFAFA => text colors
+0xFFE64A19 => background button, dll Pink
+0xFFFF5722 => FILL
+0xFFBF360C => background Blue shade 800
+
+target 2 : CRUD USERS, 
+- buat halaman utama yang menampilkan drawer, buat dummy data untuk login, lakukan proses login.
+- buat halaman dan proses CRUD tabel user dengan catatan, form harus menggunakan validasi, tidak boleh kosong, tidak boleh kosong salah satu, tidak boleh ada data yang sama
+- Commit CRUD USERS
+
+target 3 : CRUD PRODUK. 
+- Buat ui atau form dengan validasi : input tidak kosong, tipe data harus sesuai, tidak boleh ada data ganda.
+- Buat fitur pencarian 
+- Commit CRUD Produk
+
+target 4 : CRUD PELANGGAN. 
+- Buat ui atau form dengan validasi : input tidak kosong, tipe data harus sesuai, tidak boleh ada data ganda.
+- Buat fitur pencarian 
+- commit CRUD pelanggan
+
+target 5 : CRUD PENJUALAN dan DETAIL PENJUALAN.
+- Buat ui atau form dengan validasi : input tidak kosong, tipe data harus sesuai, tidak boleh ada data ganda.
+- Buat fitur pencarian dan history
+- Commit CRUD Penjualan dan detail penjualan
+
+target 6 : 
+STRUK.
+- Buat Struk menggunakan "alert dialog"
+DOKUMENTASI.
+- Buat dokumentasi penggunaan sistem dan pemeliharaan basis data pd "Word APP"
+- Simpan di Server File

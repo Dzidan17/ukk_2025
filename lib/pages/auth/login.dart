@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'; // Import Supabase
-import 'home.dart'; // Import HomePage
+import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,6 +12,8 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool _isLoading = false;
   String? _errorMessage;
+
+  get error => null;
 
   @override
   void dispose() {
@@ -29,15 +31,27 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
-      if (context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
+
+      final response = await Supabase.instance.client.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
+
+      if (response.user != null) {
+        if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
+        }
+      } else {
+        setState(() {
+          _errorMessage = "Login gagal. Periksa kembali email dan password.";
+        });
       }
     } catch (error) {
       setState(() {
-        _errorMessage = 'Invalid email or password';
+        _errorMessage = "Terjadi kesalahan: ${error.toString()}";
       });
     } finally {
       setState(() {
@@ -49,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff000000),
+      backgroundColor: Color(0xFFBF360C),
       body: Align(
         alignment: Alignment.center,
         child: Padding(
@@ -79,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.w600,
                       fontStyle: FontStyle.normal,
                       fontSize: 25,
-                      color: Color(0xFF6500),
+                      color: Color(0xFFFAFAFA),
                     ),
                   ),
                 ),
@@ -94,35 +108,38 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
                       fontSize: 14,
-                      color: Color(0xFF6500),
+                      color: Color(0xFFFAFAFA),
                     ),
                     decoration: InputDecoration(
                       disabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide(color: Color(0x0B192C), width: 1),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide(color: Color(0x0B192C), width: 1),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide(color: Color(0x0B192C), width: 1),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       hintText: "Email",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.italic,
                         fontSize: 14,
-                        color: Color(0xFF6500),
+                        color: Color(0xFFFAFAFA),
                       ),
                       filled: true,
-                      fillColor: Color(0x1E3E62),
+                      fillColor: Color(0xFFFF5722),
                       isDense: false,
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                      prefixIcon:
-                          Icon(Icons.person, color: Color(0xff212435), size: 23),
+                      prefixIcon: Icon(Icons.person,
+                          color: Color(0xff212435), size: 23),
                     ),
                   ),
                 ),
@@ -137,35 +154,38 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
                       fontSize: 14,
-                      color: Color(0xFF6500),
+                      color: Color(0xFFFAFAFA),
                     ),
                     decoration: InputDecoration(
                       disabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide(color: Color(0x0B192C), width: 1),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide(color: Color(0x0B192C), width: 1),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide(color: Color(0x0B192C), width: 1),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       hintText: "Password",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.italic,
                         fontSize: 14,
-                        color: Color(0xFF6500),
+                        color: Color(0xFFFAFAFA),
                       ),
                       filled: true,
-                      fillColor: Color(0x1E3E62),
+                      fillColor: Color(0xFFFF5722),
                       isDense: false,
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                      prefixIcon:
-                          Icon(Icons.vpn_key, color: Color(0xff212435), size: 17),
+                      prefixIcon: Icon(Icons.vpn_key,
+                          color: Color(0xff212435), size: 17),
                     ),
                   ),
                 ),
@@ -179,11 +199,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 MaterialButton(
                   onPressed: _isLoading ? null : _signIn,
-                  color: Color(0xff3674b5),
+                  color: Color(0xFFE64A19),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    side: BorderSide(color: Color(0x0B192C), width: 1),
+                    side: BorderSide(color: Color(0xFFE64A19), width: 1),
                   ),
                   padding: EdgeInsets.all(16),
                   child: _isLoading
@@ -199,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontStyle: FontStyle.normal,
                           ),
                         ),
-                  textColor: Color(0xFF6500f),
+                  textColor: Color(0xFFFAFAFA),
                   height: 40,
                   minWidth: 140,
                 ),

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'pages/auth/login.dart';
 
 void main() async {
-  String supabaseKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwYXVlcHZudHFqenppb3hscGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg3MTM4MTEsImV4cCI6MjA1NDI4OTgxMX0.jfexCnm2rFp3wXd4WbF67Mf9ihnVJ6po8cmDfsVmGQY';
-  String projectUrl = 'https://jpauepvntqjzzioxlpfc.supabase.co';
   WidgetsFlutterBinding.ensureInitialized();
+
   await Supabase.initialize(
-    url: projectUrl,
-    anonKey: supabaseKey,
+    url: 'https://jpauepvntqjzzioxlpfc.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwYXVlcHZudHFqenppb3hscGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg3MTM4MTEsImV4cCI6MjA1NDI4OTgxMX0.jfexCnm2rFp3wXd4WbF67Mf9ihnVJ6po8cmDfsVmGQY',
   );
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +19,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'My App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginPage(),
+    );
   }
 }
