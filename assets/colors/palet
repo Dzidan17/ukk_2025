@@ -30,3 +30,80 @@ STRUK.
 DOKUMENTASI.
 - Buat dokumentasi penggunaan sistem dan pemeliharaan basis data pd "Word APP"
 - Simpan di Server File
+
+
+
+
+
+
+10/02/2025
+
+fitur tambahan : pelanggan bisa akses untuk melihat daftar produk
+
+Solusi: Batasi Input Nomor Telepon Agar Hanya Angka
+Untuk mencegah pengguna menginput huruf, kita bisa menggunakan:
+
+keyboardType: TextInputType.phone → Menampilkan keyboard angka di perangkat.
+inputFormatters dengan FilteringTextInputFormatter.digitsOnly → Memastikan hanya angka yang bisa diketik.
+Validasi tambahan di validator → Pastikan panjang nomor telepon sesuai aturan.
+
+Contoh Kode di Flutter : 
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Untuk inputFormatters
+
+class TambahPelangganPage extends StatefulWidget {
+  @override
+  _TambahPelangganPageState createState() => _TambahPelangganPageState();
+}
+
+class _TambahPelangganPageState extends State<TambahPelangganPage> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController teleponController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Tambah Pelanggan")),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: teleponController,
+                keyboardType: TextInputType.phone, // Menampilkan keyboard angka
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly, // Hanya angka yang bisa dimasukkan
+                ],
+                decoration: InputDecoration(labelText: "Nomor Telepon"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Nomor telepon tidak boleh kosong!";
+                  }
+                  if (value.length < 10 || value.length > 13) {
+                    return "Nomor telepon harus 10-13 digit!";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // Simpan data jika valid
+                    print("Nomor telepon yang disimpan: ${teleponController.text}");
+                  }
+                },
+                child: Text("Simpan"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+

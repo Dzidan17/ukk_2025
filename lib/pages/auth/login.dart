@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'; // Import Supabase
 import 'home.dart';
+import 'package:ukk_2025/pages/validasi/Validasilogin.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -62,28 +63,32 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    _emailController.text = "dzidannn@gmail.com";
+    _passwordController.text = "12345";
+
     return Scaffold(
-      backgroundColor: Color(0xFFBF360C),
+      backgroundColor: const Color(0xFFBF360C),
       body: Align(
         alignment: Alignment.center,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 0),
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
-                  child: Image(
+                  child: const Image(
                     image: AssetImage("assets/images/g1.jpeg"),
                     height: 100,
                     width: 140,
                     fit: BoxFit.fill,
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 19),
                   child: Text(
                     "LOGIN",
@@ -98,13 +103,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 7),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
                   child: TextField(
                     controller: _emailController,
                     obscureText: false,
                     textAlign: TextAlign.left,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
                       fontSize: 14,
@@ -114,43 +119,43 @@ class _LoginPageState extends State<LoginPage> {
                       disabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         borderSide:
-                            BorderSide(color: Color(0xFFE64A19), width: 1),
+                            const BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         borderSide:
-                            BorderSide(color: Color(0xFFE64A19), width: 1),
+                            const BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         borderSide:
-                            BorderSide(color: Color(0xFFE64A19), width: 1),
+                            const BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       hintText: "Email",
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.italic,
                         fontSize: 14,
                         color: Color(0xFFFAFAFA),
                       ),
                       filled: true,
-                      fillColor: Color(0xFFFF5722),
+                      fillColor: const Color(0xFFFF5722),
                       isDense: false,
                       contentPadding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                      prefixIcon: Icon(Icons.person,
+                          const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      prefixIcon: const Icon(Icons.person,
                           color: Color(0xff212435), size: 23),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 7),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
                   child: TextField(
                     controller: _passwordController,
                     obscureText: true,
                     textAlign: TextAlign.start,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
                       fontSize: 14,
@@ -160,31 +165,31 @@ class _LoginPageState extends State<LoginPage> {
                       disabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         borderSide:
-                            BorderSide(color: Color(0xFFE64A19), width: 1),
+                            const BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         borderSide:
-                            BorderSide(color: Color(0xFFE64A19), width: 1),
+                            const BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         borderSide:
-                            BorderSide(color: Color(0xFFE64A19), width: 1),
+                            const BorderSide(color: Color(0xFFE64A19), width: 1),
                       ),
                       hintText: "Password",
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.italic,
                         fontSize: 14,
                         color: Color(0xFFFAFAFA),
                       ),
                       filled: true,
-                      fillColor: Color(0xFFFF5722),
+                      fillColor: const Color(0xFFFF5722),
                       isDense: false,
                       contentPadding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                      prefixIcon: Icon(Icons.vpn_key,
+                          const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      prefixIcon: const Icon(Icons.vpn_key,
                           color: Color(0xff212435), size: 17),
                     ),
                   ),
@@ -194,24 +199,27 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       _errorMessage!,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
                 MaterialButton(
                   onPressed: _isLoading ? null : _signIn,
-                  color: Color(0xFFE64A19),
+                  color: const Color(0xFFE64A19),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    side: BorderSide(color: Color(0xFFE64A19), width: 1),
+                    side: const BorderSide(color: Color(0xFFE64A19), width: 1),
                   ),
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
+                  textColor: const Color(0xFFFAFAFA),
+                  height: 40,
+                  minWidth: 140,
                   child: _isLoading
-                      ? CircularProgressIndicator(
+                      ? const CircularProgressIndicator(
                           valueColor:
                               AlwaysStoppedAnimation<Color>(Color(0xFF6500f)),
                         )
-                      : Text(
+                      : const Text(
                           "Masuk",
                           style: TextStyle(
                             fontSize: 14,
@@ -219,9 +227,6 @@ class _LoginPageState extends State<LoginPage> {
                             fontStyle: FontStyle.normal,
                           ),
                         ),
-                  textColor: Color(0xFFFAFAFA),
-                  height: 40,
-                  minWidth: 140,
                 ),
               ],
             ),
