@@ -1,45 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:ukk_2025/model/ModelProduk.dart';
+import 'package:ukk_2025/model/PelangganModel.dart';
 import 'package:ukk_2025/pages/widget/Textform.dart';
 
-class TambahProduk extends StatefulWidget {
-  const TambahProduk({super.key});
+class Tambahpelanggan extends StatefulWidget {
+  const Tambahpelanggan({super.key});
 
   @override
-  State<TambahProduk> createState() => _TambahprodukState();
+  State<Tambahpelanggan> createState() => _TambahpelangganState();
 }
 
-class _TambahprodukState extends State<TambahProduk> {
+class _TambahpelangganState extends State<Tambahpelanggan> {
   SupabaseClient supabaseClient = Supabase.instance.client;
-  final _keyProduk = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-  TextEditingController produk = TextEditingController();
-  TextEditingController harga = TextEditingController();
-  TextEditingController stok = TextEditingController();
+  TextEditingController nama = TextEditingController();
+  TextEditingController alamat = TextEditingController();
+  TextEditingController telepon = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tambah Produk"),
+        title: const Text("Tambah Pelanggan"),
       ),
       body: Form(
-        key: _keyProduk,
+        key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              Textform(controller: produk, judul: "Produk"),
-              Textform(controller: harga, judul: "Harga"),
-              Textform(controller: stok, judul: "Stok"),
+              Textform(controller: nama, judul: "Nama"),
+              Textform(controller: alamat, judul: "Alamat"),
+              Textform(controller: telepon, judul: "No Telepon"),
               const SizedBox(
                 height: 12,
               ),
               SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () => simpanProduk(), child: Text("Simpa")))
+                      onPressed: () {
+                        simpanPelanggan();
+                      },
+                      child: const Text("Simpan")))
             ],
           ),
         ),
@@ -47,23 +50,56 @@ class _TambahprodukState extends State<TambahProduk> {
     );
   }
 
-  void simpanProduk() {
-    if (_keyProduk.currentState!.validate()) {
-      debugPrint('called');
-      _keyProduk.currentState!.save();
+  void simpanPelanggan() {
+    if (_formKey.currentState!.validate()) {
+      debugPrint('Form Valid');
+      _formKey.currentState!.save();
+
+      tambahData();
+    } else {
+      debugPrint('Form Tidak Valid');
     }
   }
 
   void tambahData() async {
-    debugPrint('tambahData us called');
-    ModelProduk model = ModelProduk(
-        namaProduk: produk.text, harga: harga.text, stok: int.parse(stok.text));
+    debugPrint('tambahData dipanggil');
 
     try {
+      // cek duplikasi data
+      final existing = await supabaseClient
+          .from('pelanggan')
+          .select('nama_pelanggan')
+          .eq('nama_pelanggan', nama.text)
+          .maybeSingle(); //mengambil sati data jika ada
+
+      if (existing != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Nama pelanggan sudah terdaftar')),
+        );
+        return;
+      }
+      // Jika tidak ada duplikat, simpan data baru
+      PelangganModel model = PelangganModel(
+          namaPelanggan: nama.text,
+          alamat: alamat.text,
+          nomortelepon:
+              telepon.text.isNotEmpty ? telepon.text : "Tidak tersedia");
+
       final response =
-          await supabaseClient.from('produk').insert(model.toMap());
+          await supabaseClient.from('pelanggan').insert(model.toMap());
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Pelanggan berhasil ditambahkan")),
+        );
+        Navigator.pop(context);
+      }
     } catch (e) {
       debugPrint('Error tambahData : ${e.toString()}');
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("gagal menambah pelanggan: ${e.toString()}")),
+        );
+      }
     }
   }
 }

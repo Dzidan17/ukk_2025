@@ -12,8 +12,8 @@ class PelangganModel {
 
   factory PelangganModel.fromMap(Map<String, dynamic> map) {
     return PelangganModel(
-      pelangganId: map['pelanggan_id'] ?? 0,
-      namaPelanggan: map['nama_pelanggan'] ?? 0,
+      pelangganId: map['pelanggan_id'] ?? '',
+      namaPelanggan: map['nama_pelanggan'] ?? '',
       alamat: map['alamat'] ?? 0,
       nomortelepon: map['nomor_telepon']?.toString() ?? '',
       );
@@ -21,6 +21,7 @@ class PelangganModel {
 
   Map<String, dynamic> toMap() {
     return {
+      // 'pelanggan_id': pelangganId,
       'nama_pelanggan': namaPelanggan,
       'alamat': alamat,
       'nomor_telepon': nomortelepon

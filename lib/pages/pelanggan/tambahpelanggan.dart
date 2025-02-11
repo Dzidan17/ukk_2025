@@ -32,7 +32,7 @@ class _TambahpelangganState extends State<Tambahpelanggan> {
             children: [
               Textform(controller: nama, judul: "Nama"),
               Textform(controller: alamat, judul: "Alamat"),
-              Textform(controller: telepon, judul: "No Telepone"),
+              Textform(controller: telepon, judul: "No Telepon"),
               const SizedBox(
                 height: 12,
               ),
@@ -42,7 +42,7 @@ class _TambahpelangganState extends State<Tambahpelanggan> {
                       onPressed: () {
                         simpanPelanggan();
                       },
-                      child: Text("Simpan")))
+                      child: const Text("Simpan")))
             ],
           ),
         ),
@@ -65,6 +65,20 @@ class _TambahpelangganState extends State<Tambahpelanggan> {
     debugPrint('tambahData dipanggil');
 
     try {
+      // cek duplikasi data
+      final existing = await supabaseClient
+          .from('pelanggan')
+          .select('nama_pelanggan')
+          .eq('nama_pelanggan', nama.text)
+          .maybeSingle(); //mengambil sati data jika ada
+
+      if (existing != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Nama pelanggan sudah terdaftar')),
+        );
+        return;
+      }
+      // Jika tidak ada duplikat, simpan data baru
       PelangganModel model = PelangganModel(
           namaPelanggan: nama.text,
           alamat: alamat.text,

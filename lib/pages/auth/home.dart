@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ukk_2025/pages/pelanggan/pelanggan.dart';
+import 'package:ukk_2025/pages/produk/Produk.dart';
+import 'package:ukk_2025/pages/penjualan/Penjualan.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,15 +16,15 @@ class _HomePageState extends State<HomePage> {
         title: Text('Halaman Utama'),
       ),
       body: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            children: [
-              menu('Pelanggan', () => pindahKePelanggan()),
-              menu('Produk', () {}),
-              menu('Penjualan', () {}),
-            ],
-          ),
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            menu('Pelanggan', () => pindahKePelanggan()),
+            menu('Produk', () => pindahKeProduk()),
+            menu('Penjualan', () => pindahKePenjualan()),
+          ],
         ),
+      ),
     );
   }
 
@@ -34,9 +36,7 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
           margin: EdgeInsets.only(bottom: 8),
           child: Row(
-            children: [
-              Text(title)
-            ],
+            children: [Text(title)],
           ),
         ),
       ),
@@ -44,6 +44,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   void pindahKePelanggan() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Pelanggan()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Pelanggan()));
+  }
+
+  void pindahKeProduk() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Produk()));
+  }
+
+  void pindahKePenjualan() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Penjualan()));
   }
 }
