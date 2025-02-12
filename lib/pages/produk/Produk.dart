@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:ukk_2025/pages/fitur/EditPelanggan.dart';
-import 'package:ukk_2025/pages/pelanggan/tambahpelanggan.dart';
+import 'package:ukk_2025/pages/fitur/EditProduk.dart';
+import 'package:ukk_2025/pages/produk/TambahProduk.dart';
 
 class Produk extends StatefulWidget {
   const Produk({super.key});
@@ -18,10 +18,10 @@ class _ProdukState extends State<Produk> {
   @override
   void initState() {
     super.initState();
-    fecthProduk();
+    fetchProduk();
   }
 
-  Future<void> fecthProduk() async {
+  Future<void> fetchProduk() async {
     setState(() {
       isLoading = true;
     });
@@ -42,18 +42,15 @@ class _ProdukState extends State<Produk> {
 
   void hapusProduk(int produkId) async {
     try {
-      await supabaseClient
-          .from('produk')
-          .delete()
-          .eq('produk_id', produkId);
+      await supabaseClient.from('produk').delete().eq('produk_id', produkId);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("produk berhasil dihapus")),
+          const SnackBar(content: Text("Produk berhasil dihapus")),
         );
       }
 
-      fecthProduk(); // Perbarui daftar produk
+      fetchProduk(); // Perbarui daftar produk
     } catch (e) {
       debugPrint("Error hapus produk: ${e.toString()}");
 
@@ -73,7 +70,7 @@ class _ProdukState extends State<Produk> {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: fecthProduk,
+            onPressed: fetchProduk,
           ),
         ],
       ),
@@ -86,11 +83,6 @@ class _ProdukState extends State<Produk> {
                   itemCount: produkList.length,
                   itemBuilder: (context, index) {
                     final produk = produkList[index];
-
-                    // Validasi nomor telepon
-                    String nomorTelepon =
-                        produk['nomor_telepon']?.toString() ??
-                            "Tidak tersedia";
 
                     return Card(
                       elevation: 3,
@@ -118,10 +110,14 @@ class _ProdukState extends State<Produk> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Alamat: ${produk['alamat']}",
-                                style: TextStyle(color: Colors.grey[700])),
-                            Text("Telepon: $nomorTelepon",
-                                style: TextStyle(color: Colors.grey[700])),
+                            Text(
+                              "Harga: Rp ${produk['harga']}",
+                              style: TextStyle(color: Colors.grey[700]),
+                            ),
+                            Text(
+                              "Stok: ${produk['stok']}",
+                              style: TextStyle(color: Colors.grey[700]),
+                            ),
                           ],
                         ),
                         trailing: Row(
@@ -136,13 +132,12 @@ class _ProdukState extends State<Produk> {
                                     builder: (context) =>
                                         EditProduk(produk: produk),
                                   ),
-                                ).then((_) => fecthProduk());
+                                ).then((_) => fetchProduk());
                               },
                             ),
                             IconButton(
                               icon: Icon(Icons.delete, color: Colors.red),
-                              onPressed: () =>
-                                  hapusProduk(produk['produk_id']),
+                              onPressed: () => hapusProduk(produk['produk_id']),
                             )
                           ],
                         ),
@@ -156,7 +151,7 @@ class _ProdukState extends State<Produk> {
             context,
             MaterialPageRoute(builder: (context) => const TambahProduk()),
           );
-          fecthProduk();
+          fetchProduk();
         },
         child: const Icon(Icons.add, color: Colors.white),
       ),

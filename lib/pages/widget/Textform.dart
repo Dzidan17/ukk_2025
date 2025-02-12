@@ -3,35 +3,24 @@ import 'package:flutter/material.dart';
 class Textform extends StatelessWidget {
   final TextEditingController controller;
   final String judul;
-  const Textform({super.key, required this.controller, required this.judul});
-  // final String? Function(String?)? validator;
-  // const Textform({
-  //   required this.controller,
-  //   required this.judul,
-  //   this.validator,
-  //   Key? key,
-  // }) : super(key: key);
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator; // Tambahkan validator
+
+  const Textform({
+    super.key,
+    required this.controller,
+    required this.judul,
+    this.keyboardType,
+    this.validator, // Tambahkan validator
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 12,
-        ),
-        TextFormField(
-          controller: controller,
-          decoration:
-              InputDecoration(labelText: judul, border: OutlineInputBorder()),
-        ),
-      ],
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(labelText: judul),
+      validator: validator, // Tambahkan validasi di sini
     );
-    // return TextFormField(
-    //     controller: controller,
-    //     decoration: InputDecoration(
-    //       labelText: judul,
-    //       border: OutlineInputBorder(),
-    //     ));
-    
   }
 }
